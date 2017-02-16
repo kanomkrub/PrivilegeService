@@ -10,6 +10,7 @@ using System.Security.Claims;
 using System.Security.Principal;
 using Microsoft.AspNetCore.Authorization;
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Cors;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -19,6 +20,8 @@ namespace PrivilegeMobileService.Controllers
     /// backdoor api for debug purpose only!!
     /// </summary>
     [Route("api/[controller]")]
+    [EnableCors("CorsPolicy")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class AdminController : Controller
     {
         private readonly JwtIssuerOptions _jwtOptions;
@@ -44,18 +47,17 @@ namespace PrivilegeMobileService.Controllers
             var autho = Request.HttpContext.User;
             return new string[] { "value1", "value2" };
         }
-
-        //[HttpPost]
-        //public string Auth([FromQuery]string username, [FromQuery]string password)
-        //{
-        //    return "value";
-        //}
-
+        
         [HttpPost]
         [Route("TestAuthen")]
         [AllowAnonymous]
         public async Task<IActionResult> Get([FromQuery] string username, [FromQuery] string password)
         {
+            if(username ==null || password == null)
+            {
+                //string autho = Request.Headers["Authorization"];
+                //if(autho.Trim().StartsWith())
+            }
             var identity = await GetClaimsIdentity(username, password);
             if (identity == null)
             {

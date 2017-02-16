@@ -9,7 +9,7 @@ namespace PrivilegeCoreLibraryTest
     [TestClass]
     public class MongoTest
     {
-        private static PrivilegeContentMongo GetContentStoreMongo()
+        private static PrivilegeStoreMongo GetContentStoreMongo()
         {
             var paras = new NameValueCollection();
             paras.Add("database", "PrivilegeDB");
@@ -17,13 +17,13 @@ namespace PrivilegeCoreLibraryTest
             paras.Add("password", "");
             paras.Add("host", "localhost");
             paras.Add("port", "27017");
-            var store = new PrivilegeContentMongo(paras);
+            var store = new PrivilegeStoreMongo(paras);
             return store;
         }
         [TestMethod]
         public void GetMongoStore()
         {
-            PrivilegeContentMongo store = GetContentStoreMongo();
+            PrivilegeStoreMongo store = GetContentStoreMongo();
             Assert.IsNotNull(store);
         }
 

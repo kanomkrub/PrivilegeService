@@ -11,6 +11,10 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using PrivilegeMobileService.Model;
+using System.Collections.Specialized;
+using PrivilegeCoreLibrary;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace PrivilegeMobileService
 {
@@ -31,6 +35,9 @@ namespace PrivilegeMobileService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var loggerFactory = new LoggerFactory();
+            loggerFactory.AddConsole();
+            loggerFactory.AddDebug();
             // Add framework services.
             services.AddMvc(config =>
             {
@@ -38,9 +45,11 @@ namespace PrivilegeMobileService
                                  .RequireAuthenticatedUser()
                                  .Build();
                 config.Filters.Add(new AuthorizeFilter(policy));
+                config.Filters.Add(new ApiExceptionFilter(loggerFactory));
             });
             services.AddOptions();
             var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
+            var dataStoreSettingOptions = Configuration.GetSection(nameof(DataStoreOptions));
             var secretKey = jwtAppSettingOptions[nameof(JwtIssuerOptions.SecretKey)];
             var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey));
             services.Configure<JwtIssuerOptions>(options =>
@@ -49,11 +58,32 @@ namespace PrivilegeMobileService
                 options.Audience = jwtAppSettingOptions[nameof(JwtIssuerOptions.Audience)];
                 options.SigningCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
             });
-
+            services.Configure<DataStoreOptions>(options =>
+            {
+                options.Host = dataStoreSettingOptions[nameof(DataStoreOptions.Host)];
+                options.Port = dataStoreSettingOptions[nameof(DataStoreOptions.Port)];
+                options.DatabaseName = dataStoreSettingOptions[nameof(DataStoreOptions.DatabaseName)];
+                options.UserName = dataStoreSettingOptions[nameof(DataStoreOptions.UserName)];
+                options.Password = dataStoreSettingOptions[nameof(DataStoreOptions.Password)];
+            });
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("CustomerPolicy",
-                                  policy => policy.RequireClaim("RoleJa", "Customer"));
+                                policy => policy.RequireClaim("RoleJa", "Customer"));
+                options.AddPolicy("CompanyPolicy",
+                                policy => policy.RequireClaim("RoleJa", "Company"));
+            });
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "PrivilegeAPI", Version = "v1" });
             });
         }
 
@@ -91,7 +121,14 @@ namespace PrivilegeMobileService
                 TokenValidationParameters = tokenValidationParameters
             });
 
+            app.UseCors("CorsPolicy");
+
             app.UseMvc();
+            app.UseSwagger();
+            app.UseSwaggerUi(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "PrivilegeAPI V1");
+            });
         }
     }
 }

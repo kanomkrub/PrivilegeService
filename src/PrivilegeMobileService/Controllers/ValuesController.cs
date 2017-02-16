@@ -5,10 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Cors;
 
 namespace PrivilegeMobileService.Controllers
 {
+    [EnableCors("CorsPolicy")]
     [Route("api/[controller]")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class ValuesController : Controller
     {
         private readonly JsonSerializerSettings _serializerSettings;
