@@ -122,5 +122,48 @@ namespace PrivilegeCoreLibrary
             collection.FindAsync<Promotion>(filter).Result.ForEachAsync(t => result.Add(t)).Wait();
             return result;
         }
+
+        public bool UpdatePromotion(Promotion promotion)
+        {
+            var collection = _database.GetCollection<Promotion>(PrivilegeContentCollections.promotion);
+            return collection.ReplaceOneAsync(Builders<Promotion>.Filter.Eq(t => t.id, promotion.id), promotion).Result.MatchedCount > 0;
+        }
+        public void CreatePromotion(Promotion promotion)
+        {
+            promotion.id = Guid.NewGuid().ToString();
+            var collection = _database.GetCollection<Promotion>(PrivilegeContentCollections.promotion);
+            collection.InsertOneAsync(promotion).Wait();
+        }
+        public bool DeletePromotion(string id)
+        {
+            var collection = _database.GetCollection<Promotion>(PrivilegeContentCollections.promotion);
+            var filter = Builders<Promotion>.Filter.Eq(t => t.id, id);
+            return collection.DeleteOneAsync(filter).Result.DeletedCount > 0;
+        }
+
+        public List<Branch> GetNearbyBranchs(float longtitude, float latitude, float maxdistance)
+        {
+            return null;
+               //         db.branch.find(
+               //{loc:{ $near:{
+               //         $geometry:
+               //                     {type: "Point" ,
+               //            coordinates: [50, 51] },
+               //         $maxDistance: 500000}}})
+        }
+        public List<object> GetNearbyBranchWithDistance(float longtitude, float latitude, float maxdistance)
+        {
+            return null;
+            var odd = new { geoNear = "branch",
+                 near = [54, 40.74],
+                 spherical = true
+               };
+        _database.RunCommand(new MongoDB.Driver.JsonCommand { }"{ geoNear: "branch",near: [54, 40.74],spherical: true}}");
+            //db.runCommand( {
+            //    geoNear: "branch",
+            //     near: [54, 40.74],
+            //     spherical: true
+            //   }  )
+        }
     }
 }

@@ -59,7 +59,6 @@ namespace PrivilegeMobileService.Controllers
         public bool SetFavourites([FromBody]string[] favourites)
         {
             var email = Request.HttpContext.User.Claims.FirstOrDefault(t => t.Type == "customer_email").Value;
-
             var customer = _dataStore.GetCustomer(email);
             customer.favourite = favourites;
             return _dataStore.UpdateCustomer(customer);

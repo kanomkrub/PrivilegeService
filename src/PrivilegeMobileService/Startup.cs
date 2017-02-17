@@ -53,6 +53,7 @@ namespace PrivilegeMobileService
             services.AddOptions();
             var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
             var dataStoreSettingOptions = Configuration.GetSection(nameof(DataStoreOptions));
+            var imageStoreOptions = Configuration.GetSection(nameof(ImageStoreOptions));
             var secretKey = jwtAppSettingOptions[nameof(JwtIssuerOptions.SecretKey)];
             var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey));
             services.Configure<JwtIssuerOptions>(options =>
@@ -69,6 +70,11 @@ namespace PrivilegeMobileService
                 options.UserName = dataStoreSettingOptions[nameof(DataStoreOptions.UserName)];
                 options.Password = dataStoreSettingOptions[nameof(DataStoreOptions.Password)];
             });
+            services.Configure<ImageStoreOptions>(options =>
+            {
+                options.PathRoot = imageStoreOptions[nameof(ImageStoreOptions.PathRoot)];
+                options.MaxFileSize = imageStoreOptions.GetValue<int>(nameof(ImageStoreOptions.MaxFileSize));
+             });
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
@@ -100,7 +106,6 @@ namespace PrivilegeMobileService
             var imageStoreOptions = Configuration.GetSection(nameof(ImageStoreOptions));
             var secretKey = jwtAppSettingOptions[nameof(JwtIssuerOptions.SecretKey)];
             var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey));
-
             var tokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuer = true,
@@ -111,7 +116,7 @@ namespace PrivilegeMobileService
 
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = signingKey,
-
+                
                 RequireExpirationTime = true,
                 ValidateLifetime = true,
 

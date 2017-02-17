@@ -9,6 +9,7 @@ using PrivilegeCoreLibrary;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using PrivilegeMobileService.Model;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -24,26 +25,27 @@ namespace PrivilegeMobileService.Controllers
             _store = new PrivilegeStoreMongo(storeOptions.Value.GetParameters());
             _logger = logger;
         }
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public Promotion Get(string id)
+        
+        [HttpGet("{company}")]
+        [AllowAnonymous]
+        public List<Promotion> GetPromotions(string company)
         {
-            return _store.GetPromotion(id);
+            return _store.GetPromotions(company);
         }
-
-        // POST api/values
+        
+        [HttpPut]
+        [Route("add")]
+        public void Put([FromBody]Promotion value)
+        {
+        }
+        
         [HttpPost]
-        public void Post([FromBody]string value)
+        [Route("edit")]
+        public void Edit([FromBody]Promotion value)
         {
+
         }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

@@ -13,7 +13,7 @@ namespace PrivilegeMobileService.Model
         /// <summary>
         /// max upload filesize
         /// </summary>
-        public int MaxFileSize { get; set; }
+        public int MaxFileSize { get; set; } = 5000000;
         /// <summary>
         /// physical path to store images
         /// </summary>

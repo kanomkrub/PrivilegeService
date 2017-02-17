@@ -23,6 +23,9 @@ namespace PrivilegeCoreLibrary
 
         Promotion GetPromotion(string id);
         List<Promotion> GetPromotions(string company);
+        bool UpdatePromotion(Promotion promotion);
+        void CreatePromotion(Promotion promotion);
+        bool DeletePromotion(string id);
     }
     public sealed class PrivilegeContentCollections
     {
