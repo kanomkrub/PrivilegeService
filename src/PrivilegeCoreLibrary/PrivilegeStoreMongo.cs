@@ -96,5 +96,31 @@ namespace PrivilegeCoreLibrary
             var filter = Builders<Staff>.Filter.Eq(t => t.email, email);
             return collection.Find(filter).SingleOrDefaultAsync().Result;
         }
+
+        /// <summary>
+        /// get promotion by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Promotion GetPromotion(string id)
+        {
+            var collection = _database.GetCollection<Promotion>(PrivilegeContentCollections.promotion);
+            var filter = Builders<Promotion>.Filter.Eq(t => t.id, id);
+            return collection.Find(filter).SingleOrDefaultAsync().Result;
+        }
+
+        /// <summary>
+        /// get promotion by company code
+        /// </summary>
+        /// <param name="company"></param>
+        /// <returns></returns>
+        public List<Promotion> GetPromotions(string company)
+        {
+            var result = new List<Promotion>();
+            var collection = _database.GetCollection<Promotion>(PrivilegeContentCollections.promotion);
+            var filter = Builders<Promotion>.Filter.Eq(t => t.company, company);
+            collection.FindAsync<Promotion>(filter).Result.ForEachAsync(t => result.Add(t)).Wait();
+            return result;
+        }
     }
 }

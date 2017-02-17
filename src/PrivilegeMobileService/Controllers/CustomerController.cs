@@ -15,7 +15,6 @@ using Microsoft.AspNetCore.Cors;
 
 namespace PrivilegeMobileService.Controllers
 {
-    [EnableCors("CorsPolicy")]
     [Route("api/[controller]")]
     public class CustomerController : Controller
     {
@@ -44,7 +43,7 @@ namespace PrivilegeMobileService.Controllers
             if (customer != null) return customer;
             else
             {
-                var newCustomer = new Customer() { email = email, full_name = fullname };
+                var newCustomer = new Customer() { email = email };
                 _dataStore.CreateCustomer(newCustomer);
                 return newCustomer;
             }

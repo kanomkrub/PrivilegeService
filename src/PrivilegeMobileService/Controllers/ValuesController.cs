@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Cors;
 
 namespace PrivilegeMobileService.Controllers
 {
-    [EnableCors("CorsPolicy")]
     [Route("api/[controller]")]
     [ApiExplorerSettings(IgnoreApi = true)]
     public class ValuesController : Controller

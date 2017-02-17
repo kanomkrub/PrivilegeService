@@ -1,10 +1,14 @@
-﻿using System;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace PrivilegeCoreLibrary.Model
 {
-    class Review
+    [BsonDiscriminator(RootClass = true)]
+    public class Review
     {
+        [BsonId]
+        public string id { get; set; }
     }
 }

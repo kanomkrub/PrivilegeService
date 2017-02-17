@@ -20,6 +20,9 @@ namespace PrivilegeCoreLibrary
 
         void CreateCompanyStaff(Company company);
         Staff GetCompanyStaff(string email);
+
+        Promotion GetPromotion(string id);
+        List<Promotion> GetPromotions(string company);
     }
     public sealed class PrivilegeContentCollections
     {

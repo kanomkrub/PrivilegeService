@@ -20,7 +20,6 @@ namespace PrivilegeMobileService.Controllers
     /// backdoor api for debug purpose only!!
     /// </summary>
     [Route("api/[controller]")]
-    [EnableCors("CorsPolicy")]
     [ApiExplorerSettings(IgnoreApi = true)]
     public class AdminController : Controller
     {

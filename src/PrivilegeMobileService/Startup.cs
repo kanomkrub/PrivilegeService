@@ -15,6 +15,9 @@ using PrivilegeMobileService.Model;
 using System.Collections.Specialized;
 using PrivilegeCoreLibrary;
 using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace PrivilegeMobileService
 {
@@ -94,6 +97,7 @@ namespace PrivilegeMobileService
             loggerFactory.AddDebug();
 
             var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
+            var imageStoreOptions = Configuration.GetSection(nameof(ImageStoreOptions));
             var secretKey = jwtAppSettingOptions[nameof(JwtIssuerOptions.SecretKey)];
             var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey));
 
@@ -120,9 +124,14 @@ namespace PrivilegeMobileService
                 AutomaticChallenge = true,
                 TokenValidationParameters = tokenValidationParameters
             });
-
             app.UseCors("CorsPolicy");
-
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(imageStoreOptions[nameof(ImageStoreOptions.PathRoot)]),
+                RequestPath = new PathString("/images"),
+                OnPrepareResponse = ctx =>
+                {ctx.Context.Response.Headers.Append("Cache-Control", "public,max-age=600");}
+            });
             app.UseMvc();
             app.UseSwagger();
             app.UseSwaggerUi(c =>

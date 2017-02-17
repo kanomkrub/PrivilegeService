@@ -3,32 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Cors;
-using PrivilegeCoreLibrary.Model;
-using PrivilegeCoreLibrary;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using PrivilegeMobileService.Model;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace PrivilegeMobileService.Controllers
 {
     [Route("api/[controller]")]
-    public class PromotionController : Controller
+    public class CouponController : Controller
     {
-        private IPrivilegeStore _store;
-        private readonly ILogger _logger;
-        public PromotionController(IOptions<DataStoreOptions> storeOptions, ILogger<CustomerController> logger)
+        // GET: api/values
+        [HttpGet]
+        public IEnumerable<string> Get()
         {
-            _store = new PrivilegeStoreMongo(storeOptions.Value.GetParameters());
-            _logger = logger;
+            return new string[] { "value1", "value2" };
         }
+
         // GET api/values/5
         [HttpGet("{id}")]
-        public Promotion Get(string id)
+        public string Get(int id)
         {
-            return _store.GetPromotion(id);
+            return "value";
         }
 
         // POST api/values
