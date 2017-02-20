@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrivilegeCoreLibrary", "src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrivilegeCoreLibraryTest", "test\PrivilegeCoreLibraryTest\PrivilegeCoreLibraryTest.csproj", "{5EEB51A7-7765-41F9-9BA8-1B339AD4A5B5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrivilegeServiceTest", "test\PrivilegeServiceTest\PrivilegeServiceTest.csproj", "{8E5B0FC7-5804-4B51-A70C-73D98D6E3C54}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,18 @@ Global
 		{5EEB51A7-7765-41F9-9BA8-1B339AD4A5B5}.Release|x64.Build.0 = Release|x64
 		{5EEB51A7-7765-41F9-9BA8-1B339AD4A5B5}.Release|x86.ActiveCfg = Release|x86
 		{5EEB51A7-7765-41F9-9BA8-1B339AD4A5B5}.Release|x86.Build.0 = Release|x86
+		{8E5B0FC7-5804-4B51-A70C-73D98D6E3C54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E5B0FC7-5804-4B51-A70C-73D98D6E3C54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E5B0FC7-5804-4B51-A70C-73D98D6E3C54}.Debug|x64.ActiveCfg = Debug|x64
+		{8E5B0FC7-5804-4B51-A70C-73D98D6E3C54}.Debug|x64.Build.0 = Debug|x64
+		{8E5B0FC7-5804-4B51-A70C-73D98D6E3C54}.Debug|x86.ActiveCfg = Debug|x86
+		{8E5B0FC7-5804-4B51-A70C-73D98D6E3C54}.Debug|x86.Build.0 = Debug|x86
+		{8E5B0FC7-5804-4B51-A70C-73D98D6E3C54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E5B0FC7-5804-4B51-A70C-73D98D6E3C54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E5B0FC7-5804-4B51-A70C-73D98D6E3C54}.Release|x64.ActiveCfg = Release|x64
+		{8E5B0FC7-5804-4B51-A70C-73D98D6E3C54}.Release|x64.Build.0 = Release|x64
+		{8E5B0FC7-5804-4B51-A70C-73D98D6E3C54}.Release|x86.ActiveCfg = Release|x86
+		{8E5B0FC7-5804-4B51-A70C-73D98D6E3C54}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,5 +81,6 @@ Global
 		{71485B34-5A78-4ACE-97AB-944874576353} = {0BEE5915-74F0-475A-A46F-C11314348ABF}
 		{C88CE4AA-E13C-4AA5-9B50-79BDE8738D15} = {0BEE5915-74F0-475A-A46F-C11314348ABF}
 		{5EEB51A7-7765-41F9-9BA8-1B339AD4A5B5} = {CB3AE4C1-04D8-44B5-98A7-D455D9A07C94}
+		{8E5B0FC7-5804-4B51-A70C-73D98D6E3C54} = {CB3AE4C1-04D8-44B5-98A7-D455D9A07C94}
 	EndGlobalSection
 EndGlobal

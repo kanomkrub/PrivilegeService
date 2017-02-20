@@ -117,8 +117,8 @@ namespace PrivilegeMobileService
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = signingKey,
                 
-                RequireExpirationTime = true,
-                ValidateLifetime = true,
+                RequireExpirationTime = false,
+                ValidateLifetime = false,
 
                 ClockSkew = TimeSpan.Zero
             };

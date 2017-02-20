@@ -37,18 +37,23 @@ namespace PrivilegeMobileService.Controllers
         [Route("add")]
         public void Put([FromBody]Promotion value)
         {
+            _logger.LogInformation($"a {value.company} promotion created value:{value}");
+            _store.CreatePromotion(value);
         }
         
         [HttpPost]
         [Route("edit")]
         public void Edit([FromBody]Promotion value)
         {
-
+            _logger.LogInformation($"edit promotion {value}");
+            _store.UpdatePromotion(value);
         }
 
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete(string id)
         {
+            _logger.LogInformation($"delete promotion {id}");
+            _store.DeletePromotion(id);
         }
     }
 }

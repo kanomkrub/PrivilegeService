@@ -8,6 +8,7 @@ using PrivilegeCoreLibrary;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using PrivilegeMobileService.Model;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -24,8 +25,12 @@ namespace PrivilegeMobileService.Controllers
             _logger = logger;
         }
 
-        // GET: api/values
+        /// <summary>
+        /// get staff details using email in jwt
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
+        //[Authorize(Policy = "StaffPolicy")]
         public Staff Get()
         {
             var email = Request.HttpContext.User.Claims.FirstOrDefault(t => t.Type == "customer_email").Value;
