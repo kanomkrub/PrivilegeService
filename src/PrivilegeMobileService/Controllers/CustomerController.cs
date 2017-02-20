@@ -63,6 +63,5 @@ namespace PrivilegeMobileService.Controllers
             customer.favourite = favourites;
             return _dataStore.UpdateCustomer(customer);
         }
-
     }
 }

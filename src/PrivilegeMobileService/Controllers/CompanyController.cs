@@ -52,6 +52,5 @@ namespace PrivilegeMobileService.Controllers
             if (!updated) throw new KeyNotFoundException($"{company.name} not found.");
             return _store.GetCompany(company.name);
         }
-        
     }
 }

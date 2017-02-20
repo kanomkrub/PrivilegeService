@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PrivilegeCoreLibrary.Model
 {
-    class Branch
+    public class Branch
     {
     }
 }

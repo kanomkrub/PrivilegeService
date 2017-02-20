@@ -154,11 +154,11 @@ namespace PrivilegeCoreLibrary
         public List<object> GetNearbyBranchWithDistance(float longtitude, float latitude, float maxdistance)
         {
             return null;
-            var odd = new { geoNear = "branch",
-                 near = [54, 40.74],
-                 spherical = true
-               };
-        _database.RunCommand(new MongoDB.Driver.JsonCommand { }"{ geoNear: "branch",near: [54, 40.74],spherical: true}}");
+            //var odd = new { geoNear = "branch",
+            //     near = [54, 40.74],
+            //     spherical = true
+            //   };
+        //_database.RunCommand(new MongoDB.Driver.JsonCommand { }"{ geoNear: "branch",near: [54, 40.74],spherical: true}}");
             //db.runCommand( {
             //    geoNear: "branch",
             //     near: [54, 40.74],
